@@ -1,0 +1,44 @@
+.container {
+    flex: 2;
+    margin-top: 60px;
+}
+
+.subtitle {
+    color: grey;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.travel {
+    background-color: #ff7857;
+}
+
+.culture {
+    background-color: #ffb14f;
+}
+
+.food {
+    background-color: #7fb881;
+}
+
+.fashion {
+    background-color: #ff7887;
+}
+
+.coding {
+    background-color: #775aec;
+}
+
+.style {
+    background-color: #789cff;
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        display: none;
+    }
+}
