@@ -25,6 +25,11 @@ const Comments = () => {
                             <span className={styles.date}>07.09.2023</span>
                         </div>
                     </div>
+                    <p className={styles.desc}>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut rerum ex officiis ducimus
+                        voluptatum, obcaecati delectus incidunt nulla, quibusdam quasi commodi modi ipsam iure
+                        praesentium hic nam saepe voluptatibus cum?
+                    </p>
                 </div>
             </div>
         </div>

@@ -1,5 +1,3 @@
-.container {}
-
 .infoContainer {
     display: flex;
     align-items: center;
@@ -64,8 +62,36 @@
     margin-top: 60px;
 }
 
-.description p{
+.description p {
     font-style: 20px;
     font-weight: 300;
     margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1536px) {
+    .title {
+        font-size: 54px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .title {
+        font-size: 48px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .imageContainer {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .title {
+        font-size: 36px;
+    }
+
+    .description p {
+        font-size: 18px;
+    }
 }
