@@ -1,10 +1,13 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
-export const GET = async (req: Request, res: Response) => {
+export const GET = async (req: Request, { params }) => {
+    const { slug } = params;
     try {
-        const categories = await prisma.category.findMany();
-        return new NextResponse(JSON.stringify(categories), { status: 200 });
+        const category = await prisma.category.findUnique({
+            where: { slug }
+        });
+        return new NextResponse(JSON.stringify(category), { status: 200 });
     } catch (error) {
         console.log('error: ', error);
         return new NextResponse(

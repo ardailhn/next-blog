@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './writePage.module.css';
 import Image from 'next/image';
 import ReactQuill from 'react-quill';
@@ -8,13 +8,17 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const WritePage = () => {
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState('');
     const { status } = useSession();
     const router = useRouter();
 
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const [file, setFile] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState('');
+
     useEffect(() => {
-        if (status === 'unauthenticated') { router.push("/") }
+        if (status === 'unauthenticated') { router.push("/login") }
     }, [router, status]);
 
     let content = null;
@@ -30,7 +34,8 @@ const WritePage = () => {
                 </button>
                 {open && (
                     <div className={styles.add}>
-                        <button className={styles.addButton}>
+                        <input ref={fileInputRef} type="file" name="" id="file" onChange={(e) => setFile(e.target.files[0])} style={{ display: 'none' }} />
+                        <button onClick={() => { fileInputRef?.current?.click(); }} className={styles.addButton}>
                             <Image src='/image.png' alt='' width={16} height={16} />
                         </button>
                         <button className={styles.addButton}>

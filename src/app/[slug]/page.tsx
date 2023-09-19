@@ -3,53 +3,46 @@ import styles from './singlePage.module.css'
 import Menu from '../../components/menu/Menu'
 import Image from 'next/image'
 import Comments from '../../components/comments/Comments'
-const SinglePage = () => {
+
+const getData = async ({ slug }) => {
+    const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
+        cache: 'no-store',
+    })
+
+    if (!res.ok) {
+        throw new Error('Something went wrong')
+    }
+
+    return res.json();
+}
+
+const SinglePage = async ({ params }) => {
+    const { slug } = params;
+    const post = await getData({ slug });
     return (
         <div className={styles.container}>
             <div className={styles.infoContainer}>
                 <div className={styles.textContainer}>
-                    <h1 className={styles.title}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
+                    <h1 className={styles.title}>{post.title}</h1>
                     <div className={styles.user}>
                         <div className={styles.userImageContainer}>
-                            <Image src="/p1.jpeg" alt='' fill className={styles.avatar} />
+                            <Image src={post.user.image} alt='' fill className={styles.avatar} />
                         </div>
                         <div className={styles.userTextContainer}>
-                            <span className={styles.username}>John Doe</span>
-                            <span className={styles.date}>07.09.2023</span>
+                            <span className={styles.username}>{post.user.name}</span>
+                            <span className={styles.date}>{post.createdAt.substring(0, 10)}</span>
                         </div>
                     </div>
                 </div>
                 <div className={styles.imageContainer}>
-                    <Image src="/p1.jpeg" alt='' fill className={styles.image} />
+                    <Image src={post.img} alt='' fill className={styles.image} />
                 </div>
             </div>
             <div className={styles.content}>
                 <div className={styles.post}>
-                    <div className={styles.description}>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel soluta
-                            quam tempore nihil blanditiis sit exercitationem numquam nulla suscipit
-                            quae laborum autem labore, reiciendis quia quod error voluptatibus,
-                            facere asperiores!
-                        </p>
-                        <h2>
-                            Lorem ipsum dolor sit amet
-                        </h2>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel soluta
-                            quam tempore nihil blanditiis sit exercitationem numquam nulla suscipit
-                            quae laborum autem labore, reiciendis quia quod error voluptatibus,
-                            facere asperiores!
-                        </p>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel soluta
-                            quam tempore nihil blanditiis sit exercitationem numquam nulla suscipit
-                            quae laborum autem labore, reiciendis quia quod error voluptatibus,
-                            facere asperiores!
-                        </p>
-                    </div>
+                    <div className={styles.description} dangerouslySetInnerHTML={{ __html: post.desc }} />
                     <div className={styles.comment}>
-                        <Comments />
+                        <Comments postSlug={post.slug} />
                     </div>
                 </div>
                 <Menu />
