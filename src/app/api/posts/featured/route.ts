@@ -1,15 +1,16 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
-export const GET = async (req: Request, { params }) => {
-    const { slug } = params;
+export const GET = async (req: Request, res: Response) => {
     try {
-        const post = await prisma.post.update({
-            where: { slug },
-            data: { views: { increment: 1 } },
+        const posts = await prisma.post.findMany({
+            where: {
+                featured: true,
+            },
             include: { user: true },
+            take: 5,
         });
-        return new NextResponse(JSON.stringify(post), { status: 200 });
+        return new NextResponse(JSON.stringify(posts), { status: 200 });
     } catch (error) {
         console.log('error: ', error);
         return new NextResponse(

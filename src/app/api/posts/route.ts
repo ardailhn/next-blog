@@ -3,11 +3,10 @@ import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 
 export const GET = async (req: Request, res: Response) => {
-
     const { searchParams } = new URL(req.url);
 
-    const page = Number(searchParams.get('page')) || 1;
-    const size = Number(searchParams.get('size')) || 2;
+    const page = parseInt(searchParams.get('page')) || 1;
+    const size = parseInt(searchParams.get('size')) || 2;
     const category = searchParams.get('category');
 
     const query = {

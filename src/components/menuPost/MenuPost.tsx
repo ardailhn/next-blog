@@ -5,18 +5,18 @@ import Image from 'next/image'
 
 const MenuPost = ({ withImage, post }: any) => {
     return (
-        <Link href="/" className={styles.item}>
+        <Link href={`/${post.slug}`} className={styles.item}>
             {withImage && <div className={styles.imageContainer}>
-                <Image src={post.imageUrl} alt={post.title} fill className={styles.image} />
+                <Image src={post.img} alt={post.title} fill className={styles.image} />
             </div>}
             <div className={styles.textContainer}>
-                <span className={`${styles.category} ${styles[post.category]}`}>{post.category}</span>
+                <span className={`${styles.category} ${styles[post.catSlug]}`}>{post.catSlug}</span>
                 <h3 className={styles.postTitle}>
                     {post.title}
                 </h3>
                 <div className={styles.detail}>
-                    <div className={styles.username}>{post.user.username}</div>
-                    <div className={styles.date}>{post.date}</div>
+                    <div className={styles.username}>{post.user.name}</div>
+                    <div className={styles.date}>{post.createdAt}</div>
                 </div>
             </div>
         </Link>

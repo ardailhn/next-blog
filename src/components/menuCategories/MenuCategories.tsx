@@ -1,16 +1,16 @@
 import React from 'react'
 import styles from './menucategories.module.css'
 import Link from 'next/link'
-const MenuCategories = ({ categories }) => {
+const MenuCategories = ({ categories }: any) => {
     return (
         <div className={styles.container}>
-            {categories.map((category: string, index: number) => (
+            {categories.map((category: any, index: number) => (
                 <Link
                     key={index}
-                    href={`/blog?cat=${category}`}
-                    className={`${styles.categoryItem} ${styles[category]}`}
+                    href={`/blog?category=${category.slug}`}
+                    className={`${styles.categoryItem} ${styles[category.slug]}`}
                 >
-                    {category}
+                    {category.title}
                 </Link>
             ))}
         </div>

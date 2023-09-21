@@ -6,9 +6,11 @@ import Link from 'next/link'
 const Card = ({ post }) => {
     return (
         <div className={styles.container}>
-            <div className={styles.imageContainer}>
-                <Image src={post.img} alt={post.title} fill className={styles.image} />
-            </div>
+            {post.img &&
+                <div className={styles.imageContainer}>
+                    <Image src={post.img} alt={post.title} fill className={styles.image} />
+                </div>
+            }
             <div className={styles.textContainer}>
                 <div className={styles.detail}>
                     <span className={styles.date}>{post.createdAt.substring(0, 10)} -{" "}</span>
@@ -18,7 +20,7 @@ const Card = ({ post }) => {
                     <h2>{post.title}</h2>
                 </Link>
                 <p className={styles.desc}>
-                    {post.desc}
+                    Views : {post.views}
                 </p>
                 <Link href={`/${post.slug}`} className={styles.link}>Read More</Link>
             </div>

@@ -3,73 +3,46 @@ import styles from './menu.module.css'
 import MenuPosts from '../menuPosts/MenuPosts'
 import MenuCategories from '../menuCategories/MenuCategories'
 
-const posts = [
-    {
-        id: "1",
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-        category: 'travel',
-        date: '07.09.2023',
-        user: {
-            username: 'John Doe'
-        },
-        imageUrl: '/p1.jpeg'
-    },
-    {
-        id: "2",
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-        category: 'culture',
-        date: '07.09.2023',
-        user: {
-            username: 'John Doe'
-        },
-        imageUrl: '/p1.jpeg'
-    },
-    {
-        id: "3",
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-        category: 'food',
-        date: '07.09.2023',
-        user: {
-            username: 'John Doe'
-        },
-        imageUrl: '/p1.jpeg'
-    },
-    {
-        id: "4",
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-        category: 'fashion',
-        date: '07.09.2023',
-        user: {
-            username: 'John Doe'
-        },
-        imageUrl: '/p1.jpeg'
-    },
-    {
-        id: "5",
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-        category: 'coding',
-        date: '07.09.2023',
-        user: {
-            username: 'John Doe'
-        },
-        imageUrl: '/p1.jpeg'
-    },
-    {
-        id: "6",
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-        category: 'style',
-        date: '07.09.2023',
-        user: {
-            username: 'John Doe'
-        },
-        imageUrl: '/p1.jpeg'
-    },
-]
+const getPopularData = async () => {
+    const res = await fetch(`http://localhost:3000/api/posts/popular`, {
+        cache: 'no-store',
+    })
 
-const Menu = () => {
-    const mostPopularPosts = posts;
-    const editorPosts = posts;
-    const categories = ['travel', 'culture', 'food', 'fashion', 'coding', 'style'];
+    if (!res.ok) {
+        throw new Error('Something went wrong')
+    }
+
+    return res.json();
+}
+
+const getFeaturedData = async () => {
+    const res = await fetch(`http://localhost:3000/api/posts/featured`, {
+        cache: 'no-store',
+    })
+
+    if (!res.ok) {
+        throw new Error('Something went wrong')
+    }
+
+    return res.json();
+}
+
+const getCategoriesData = async () => {
+    const res = await fetch(`http://localhost:3000/api/categories`, {
+        cache: 'no-store',
+    })
+
+    if (!res.ok) {
+        throw new Error('Something went wrong')
+    }
+
+    return res.json();
+}
+
+const Menu = async () => {
+    const mostPopularPosts = await getPopularData();
+    const editorPosts = await getFeaturedData();
+    const categories = await getCategoriesData();
 
     return (
         <div className={styles.container}>

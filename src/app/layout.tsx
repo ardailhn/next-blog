@@ -9,8 +9,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Blog App',
-  description: 'The best blog app!',
+  title: 'Next Blog',
+  description: 'Arda İlhan own blog site with Next.js',
 }
 
 export default function RootLayout({ children }) {

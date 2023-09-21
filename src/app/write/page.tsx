@@ -9,8 +9,6 @@ import { useRouter } from 'next/navigation';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { app } from '@/utils/firebase';
 
-const storage = getStorage(app);
-
 const WritePage = () => {
     const { status } = useSession();
     const router = useRouter();
@@ -21,43 +19,40 @@ const WritePage = () => {
     const [media, setMedia] = useState(null);
     const [value, setValue] = useState('');
     const [title, setTitle] = useState('');
+    const [catSlug, setCatSlug] = useState<string | null>(null);
 
-    const update = (file) => {
-        const name = new Date().getTime() + '-' + file.name;
-        const storageRef = ref(storage, name);
+    useEffect(() => {
+        const storage = getStorage(app);
+        const upload = () => {
+            const name = new Date().getTime() + '-' + file.name;
+            const storageRef = ref(storage, name);
 
-        const uploadTask = uploadBytesResumable(storageRef, file);
+            const uploadTask = uploadBytesResumable(storageRef, file);
 
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-                switch (snapshot.state) {
-                    case 'paused':
-                        console.log('Upload is paused');
-                        break;
-                    case 'running':
-                        console.log('Upload is running');
-                        break;
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    switch (snapshot.state) {
+                        case 'paused':
+                            console.log('Upload is paused');
+                            break;
+                        case 'running':
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                (error) => {
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setMedia(downloadURL);
+                    });
                 }
-            },
-            (error) => {
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    setMedia(downloadURL);
-                });
-            }
-        );
-    }
-
-    useEffect(() => {
-
+            );
+        }
+        file && upload();
     }, [file]);
-
-    useEffect(() => {
-        if (status === 'unauthenticated') { router.push("/login") }
-    }, [router, status]);
 
     const slugify = (str: string) =>
         str
@@ -73,17 +68,40 @@ const WritePage = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title, desc: value, img: media, slug: slugify(title) })
+            body: JSON.stringify({
+                title,
+                desc: value,
+                img: media,
+                slug: slugify(title),
+                catSlug: catSlug || "style",
+            })
         });
+
+        console.log('res: ', res);
+
+        if (res.status === 201) {
+            const data = await res.json();
+            router.push(`/${data.slug}`);
+        }
     }
 
-    let content = null;
+    useEffect(() => {
+        if (status === 'unauthenticated') { router.push("/login") }
+    }, [router, status]);
 
-    if (status === 'loading') { content = (<div className={styles.loading}>Loading...</div>) }
+    if (status === 'loading') { return (<div className={styles.loading}>Loading...</div>) }
 
-    content = (
+    return (
         <div className={styles.container}>
             <input onChange={(e) => setTitle(e.target.value)} type="text" placeholder='Title' className={styles.input} />
+            <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
+                <option value="style">style</option>
+                <option value="fashion">fashion</option>
+                <option value="food">food</option>
+                <option value="culture">culture</option>
+                <option value="travel">travel</option>
+                <option value="coding">coding</option>
+            </select>
             <div className={styles.editor}>
                 <button className={styles.button} onClick={() => setOpen(prev => !prev)}>
                     <Image src='/plus.png' alt='' width={16} height={16} />
@@ -107,8 +125,6 @@ const WritePage = () => {
             <button onClick={handleSubmit} className={styles.publish}>Publish</button>
         </div>
     )
-
-    return content;
 }
 
 export default WritePage
