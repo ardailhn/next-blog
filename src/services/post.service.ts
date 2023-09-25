@@ -28,3 +28,9 @@ export const getFeaturedPosts = async () => {
 
     return fetchInstance({ path });
 }
+
+export const getAllPostSlugs = async () => {
+    const path = "posts/slugs";
+
+    return fetchInstance({ path });
+}

@@ -11,3 +11,9 @@ export const getCategoryBySlug = async (categorySlug: string) => {
 
     return fetchInstance({ path });
 }
+
+export const getAllCategorySlugs = async () => {
+    const path = "categories/slugs";
+
+    return fetchInstance({ path });
+}
