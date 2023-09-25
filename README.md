@@ -1,34 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next Blog 
+Next Blog is a modern blog web application built using Next.js, offering fast performance and server-side rendering capabilities. It leverages MongoDB as its primary database, interfacing through Prisma, a next-generation ORM. Real-time data fetching is managed using SWR, ensuring up-to-date data presentation without frequent server hits. The project implements authentication mechanisms through Next-Auth and expands its cloud capabilities using Firebase. All of this is seamlessly deployed and hosted on Vercel, providing a smooth user experience.
 
-## Getting Started
+## [Live Demo](https://blog.ardailhan.software/)
 
-First, run the development server:
+![Live Demo](https://firebasestorage.googleapis.com/v0/b/next-blog-398508.appspot.com/o/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202023-09-25%20170450.png?alt=media)
+![Live Demo](https://firebasestorage.googleapis.com/v0/b/next-blog-398508.appspot.com/o/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202023-09-25%20170502.png?alt=media)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Technology Stack 
+- **Framework**: Next.js 
+- **Database**: MongoDB 
+- **ORM**: Prisma 
+- **Data Fetching**: SWR
+-  **Authentication**: Next-Auth 
+-  **Cloud Services**: Firebase 
+- **Deployment**: Vercel
+
+## Dependencies  
+- `next`: [Latest version of Next.js](https://nextjs.org/)
+- `prisma`: [Latest version of Prisma](https://www.prisma.io/) 
+-  `swr`: [Latest version of SWR](https://swr.vercel.app/) 
+-  `next-auth`: [Latest version of Next-Auth](https://next-auth.js.org/)
+- `firebase`: [Latest version of Firebase](https://firebase.google.com/)
+
+## Installation  
+1. Clone the project: ```git clone https://github.com/ardailhn/next-blog.git ``` 
+2. Install the dependencies: ```npm install ``` 
+3.  Set up your database and create your `.env` file. 
+4. Run the application for developer mode: ```npm run dev ```
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Environment Variables
+```
+GOOGLE_CLIENT_ID =
+GOOGLE_CLIENT_SECRET = 
+NEXTAUTH_URL = http://localhost:3000
+NEXTAUTH_SECRET = 
+NEXT_PUBLIC_API_URL = http://localhost:3000/api/
+NEXT_PUBLIC_APP_URL = http://localhost:3000/
+MONGO = 
+DATABASE_URL=
+FIREBASE = 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- [ ] Loading screens and components (skeleton etc.).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [ ] Internationalization.
 
-## Learn More
+- [ ] User profile pages.
 
-To learn more about Next.js, take a look at the following resources:
+- [ ] Admin panel.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [ ] Seo optimizations for comments.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [ ] Refactor of folder structure
 
-## Deploy on Vercel
+- [ ] Add third party analytics tools
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ ] Search page
