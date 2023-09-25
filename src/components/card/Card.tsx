@@ -22,7 +22,7 @@ const Card = ({ post }) => {
                 <p className={styles.desc}>
                     Views : {post.views}
                 </p>
-                <Link href={`/${post.slug}`} className={styles.link}>Read More</Link>
+                <Link href={`/${post.slug}`} aria-label={`Read more of ${post.slug} blog`} className={styles.link}>Read More</Link>
             </div>
         </div>
     )
