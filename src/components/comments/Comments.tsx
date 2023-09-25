@@ -18,7 +18,7 @@ const Comments = ({ postSlug }) => {
             await createComment({ desc, postSlug });
             mutate();
         } catch (error) {
-            console.log('error: ', error);
+            console.error('error: ', error);
         }
     }
 

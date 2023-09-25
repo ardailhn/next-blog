@@ -14,7 +14,7 @@ export const GET = async (req: Request, res: Response) => {
         });
         return new NextResponse(JSON.stringify(comments), { status: 200 });
     } catch (error) {
-        console.log('error: ', error);
+        console.error('error: ', error);
         return new NextResponse(
             JSON.stringify({ message: "Something went wrong!" }), { status: 500 }
         );
@@ -37,7 +37,7 @@ export const POST = async (req: Request, res: Response) => {
         });
         return new NextResponse(JSON.stringify(comment), { status: 201 });
     } catch (error) {
-        console.log('error: ', error);
+        console.error('error: ', error);
         return new NextResponse(
             JSON.stringify({ message: "Something went wrong!" }), { status: 500 }
         );
