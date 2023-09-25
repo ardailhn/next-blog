@@ -1,4 +1,4 @@
-import AuthProvides from '@/Providers/AuthProvides'
+import AuthProvider from '@/Providers/AuthProvider'
 import ThemeProvider from '../Providers/ThemeProvider'
 import Footer from '../components/footer/Footer'
 import Navbar from '../components/navbar/Navbar'
@@ -17,19 +17,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvides>
+        <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>
-              <div className='container'>
+              <main className='container'>
                 <div className='wrapper'>
                   <Navbar />
                   {children}
                   <Footer />
                 </div>
-              </div>
+              </main>
             </ThemeProvider>
           </ThemeContextProvider>
-        </AuthProvides>
+        </AuthProvider>
       </body>
     </html>
   )
