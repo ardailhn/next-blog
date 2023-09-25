@@ -5,34 +5,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
-
-const fetcher = async (url: string) => {
-    const res = await fetch(url, {
-        cache: 'no-store',
-    });
-
-    if (!res.ok) {
-        throw new Error('Something went wrong');
-    }
-
-    return res.json();
-};
+import { createComment, getCommentsByPostSlug } from '@/services/comment.service';
 
 const Comments = ({ postSlug }) => {
     const { status } = useSession()
-    const { data: comments, isLoading, error, mutate } = useSWR(`http://localhost:3000/api/comments?postSlug=${postSlug}`, fetcher);
+    const { data: comments, isLoading, error, mutate } = useSWR(["comments", postSlug], (postSlug: string) => getCommentsByPostSlug(postSlug));
 
     const [desc, setDesc] = useState('');
 
     const handleSubmit = async () => {
-        await fetch('http://localhost:3000/api/comments', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ desc, postSlug }),
-        });
-        mutate();
+        try {
+            await createComment({ desc, postSlug });
+            mutate();
+        } catch (error) {
+            console.log('error: ', error);
+        }
     }
 
     return (

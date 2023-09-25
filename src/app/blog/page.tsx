@@ -2,25 +2,14 @@ import React from 'react'
 import styles from './blogPage.module.css';
 import CardList from '../../components/cardList/CardList';
 import Menu from '../../components/menu/Menu';
-
-const getData = async ({ categorySlug }) => {
-    const res = await fetch(`http://localhost:3000/api/categories/${categorySlug}`, {
-        cache: 'no-store',
-    })
-
-    if (!res.ok) {
-        throw new Error('Something went wrong')
-    }
-
-    return res.json();
-}
+import { getCategoryBySlug } from '@/services/category.service';
 
 const BlogPage = async ({ searchParams }) => {
     const page = parseInt(searchParams.page) || 1;
     const size = parseInt(searchParams.size) || 2;
     const categorySlug = searchParams.category;
 
-    const category = await getData({ categorySlug });
+    const category = await getCategoryBySlug(categorySlug);
 
     return (
         <div className={styles.container}>

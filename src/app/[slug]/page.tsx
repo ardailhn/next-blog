@@ -4,18 +4,7 @@ import Menu from '../../components/menu/Menu'
 import Image from 'next/image'
 import Comments from '../../components/comments/Comments'
 import { Metadata } from 'next'
-
-const getData = async ({ slug }) => {
-    const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
-        cache: 'no-store',
-    })
-
-    if (!res.ok) {
-        throw new Error('Something went wrong')
-    }
-
-    return res.json();
-}
+import { getPostBySlug } from '@/services/post.service'
 
 type Props = {
     params: { slug: string }
@@ -25,7 +14,7 @@ export async function generateMetadata(
     { params }: Props
 ): Promise<Metadata> {
     const { slug } = params;
-    const post = await getData({ slug });
+    const post = await getPostBySlug({ slug });
 
     return {
         title: post.title,
@@ -48,7 +37,7 @@ export async function generateMetadata(
 
 const SinglePage = async ({ params }) => {
     const { slug } = params;
-    const post = await getData({ slug });
+    const post = await getPostBySlug({ slug });
 
     const jsonLd = {
         '@context': 'https://schema.org',

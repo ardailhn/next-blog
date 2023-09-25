@@ -2,47 +2,13 @@ import React from 'react'
 import styles from './menu.module.css'
 import MenuPosts from '../menuPosts/MenuPosts'
 import MenuCategories from '../menuCategories/MenuCategories'
-
-const getPopularData = async () => {
-    const res = await fetch(`http://localhost:3000/api/posts/popular`, {
-        cache: 'no-store',
-    })
-
-    if (!res.ok) {
-        throw new Error('Something went wrong')
-    }
-
-    return res.json();
-}
-
-const getFeaturedData = async () => {
-    const res = await fetch(`http://localhost:3000/api/posts/featured`, {
-        cache: 'no-store',
-    })
-
-    if (!res.ok) {
-        throw new Error('Something went wrong')
-    }
-
-    return res.json();
-}
-
-const getCategoriesData = async () => {
-    const res = await fetch(`http://localhost:3000/api/categories`, {
-        cache: 'no-store',
-    })
-
-    if (!res.ok) {
-        throw new Error('Something went wrong')
-    }
-
-    return res.json();
-}
+import { getFeaturedPosts, getPopularPosts } from '@/services/post.service'
+import { getCategories } from '@/services/category.service'
 
 const Menu = async () => {
-    const mostPopularPosts = await getPopularData();
-    const editorPosts = await getFeaturedData();
-    const categories = await getCategoriesData();
+    const mostPopularPosts = await getPopularPosts();
+    const editorPosts = await getFeaturedPosts();
+    const categories = await getCategories();
 
     return (
         <div className={styles.container}>

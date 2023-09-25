@@ -24,6 +24,7 @@
   "devDependencies": {
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
+    "encoding": "^0.1.13",
     "prisma": "^5.2.0"
   }
 }
