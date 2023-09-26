@@ -25,21 +25,23 @@ Next Blog is a modern blog web application built using Next.js, offering fast pe
 ## Installation  
 1. Clone the project: ```git clone https://github.com/ardailhn/next-blog.git ``` 
 2. Install the dependencies: ```npm install ``` 
-3.  Set up your database and create your `.env` file. 
-4. Run the application for developer mode: ```npm run dev ```
-5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Set up your database and create your `.env` file. 
+4. Generate Prisma Client with the following command: `npx prisma generate`
+5. Run the application for developer mode: ```npm run dev ```
+6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Environment Variables
 ```
 GOOGLE_CLIENT_ID =
-GOOGLE_CLIENT_SECRET = 
+GOOGLE_CLIENT_SECRET =
+GOOGLE_TAG =
 NEXTAUTH_URL = http://localhost:3000
-NEXTAUTH_SECRET = 
+NEXTAUTH_SECRET =
 NEXT_PUBLIC_API_URL = http://localhost:3000/api/
 NEXT_PUBLIC_APP_URL = http://localhost:3000/
-MONGO = 
+MONGO =
 DATABASE_URL=
-FIREBASE = 
+FIREBASE =
 ```
 
 ## Features
@@ -56,6 +58,6 @@ FIREBASE =
 
 - [ ] Refactor of folder structure
 
-- [ ] Add third party analytics tools
+- [x] Add third party analytics tools
 
 - [ ] Search page
